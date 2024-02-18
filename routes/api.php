@@ -26,7 +26,10 @@ Route::middleware(['auth:sanctum', 'isApiAdmin'])->group(function () {
     Route::delete('delete-category/{id}', [CategoryController::class, 'destroy']);
 
     // product
+    Route::get('/get-products', [ProductController::class, 'index']);
     Route::post('/add-product', [ProductController::class, 'store']);
+    Route::get('/edit-product/{id}', [ProductController::class, 'edit']);
+    Route::put('/update-product/{id}', [ProductController::class, 'update']);
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
