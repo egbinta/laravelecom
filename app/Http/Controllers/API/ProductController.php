@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -99,8 +99,8 @@ class ProductController extends Controller
             'slug' => 'required',
             'name' => 'required',
             'category_id' => 'required',
-            // 'brand' => 'required',
-            // 'quantity' => 'required',
+            'brand' => 'required',
+            'quantity' => 'required',
         ]);
 
         if($validator->fails()) {
@@ -123,10 +123,10 @@ class ProductController extends Controller
                 $product->original_price = $request->original_price;
                 $product->quantity = $request->quantity;
 
-                if($request->hasAny('image')) {
+                if($request->hasFile('image')) {
                     $path = $product->image;
                     if(File::exists($path)) {
-                        File::delete();
+                        File::delete($path);
                     }
                     $file = $request->file('image');
                     $extension = time().$file->getClientOriginalName();
@@ -138,12 +138,11 @@ class ProductController extends Controller
                 $product->popular = $request->popular;
                 $product->status = $request->status;
                 
-                $product->update();
+                $product->save();
 
                 return response()->json([
                     "status" => 200,
                     "message" => "The product has been updated successfully",
-                    "data" => $product
                 ]);
             }else{
                 return response()->json([

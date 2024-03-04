@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\API\TestProductController;
+use App\Http\Controllers\API\TestController;
+//use App\Http\Controllers\API\TestProductController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
@@ -33,7 +34,10 @@ Route::middleware(['auth:sanctum', 'isApiAdmin'])->group(function () {
     Route::put('/update-product/{id}', [ProductController::class, 'update']);
 
     // testPro
-    Route::post('/test-product', [TestProductController::class], 'store');
+    Route::post('/test-product', [TestController::class, 'store']);
+    Route::get('/get-testpro', [TestController::class, 'index']);
+    Route::get('/getProduct/{id}', [TestController::class, 'edit']);
+    Route::put('/update-testpro/{id}', [TestController::class, 'update']);
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {

@@ -17,7 +17,7 @@ class CreateTestprosTable extends Migration
             $table->id();
             $table->string('proname')->nullable();
             $table->string('proprice')->nullable();
-            $table->text('prodecription')->nullable();
+            $table->text('prodescription')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });
