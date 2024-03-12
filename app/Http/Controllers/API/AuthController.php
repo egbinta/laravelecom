@@ -58,7 +58,7 @@ class AuthController extends Controller
             if (! $user || !Hash::check($request->password, $user->password)) {
                 return response()->json([
                     'status' => 401,
-                    'message' => 'Invalid credentials'
+                    'message' => 'You are Unauthorized'
                 ]);
             }else{
                 if($user->role_as == 1) {
