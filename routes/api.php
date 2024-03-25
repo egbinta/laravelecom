@@ -10,6 +10,8 @@ use App\Http\Controllers\API\TestController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+Route::get('get-category', [CategoryController::class, 'allcategory']);
+Route::post('product-category/{id}', [ProductController::class, 'show']);
 
 Route::middleware(['auth:sanctum', 'isApiAdmin'])->group(function () {
 

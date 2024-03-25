@@ -76,6 +76,22 @@ class ProductController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $productCategory = Product::where('category_id', $id)->get();
+        if($productCategory) {
+            return response()->json([
+                "status" => 200,
+                "productCategory" => $productCategory
+            ]);
+        }else{
+            return response()->json([
+                "status" => 404,
+                "message" => "Product Category not Found"
+            ]);
+        }
+    }
+
     public function edit($id)
     {
         $product = Product::where("id", $id)->first();

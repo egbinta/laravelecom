@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,10 +24,14 @@ class CategoryController extends Controller
     public function allcategory()
     {
         $category = Category::where('status', '0')->get();
+        $product = Product::all();
         if($category) {
             return response()->json([
                 'status' => 200,
-                'category' => $category
+                'data' => [
+                    'category' => $category,
+                    'product' => $product
+                ]
             ]);
         }else {
             return response()->json([
